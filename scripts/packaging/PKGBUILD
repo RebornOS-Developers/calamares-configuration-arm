@@ -3,13 +3,12 @@
 pkgname=calamares-configuration
 pkgver=0.0.15
 pkgrel=1
-arch=('i686' 'x86_64' 'armv6h' 'armv7h')
+arch=('aarch64')
 pkgdesc='Configuration for the RebornOS Calamares installer.'
 url='https://github.com/RebornOS-Developers/calamares-configuration'
 license=('GPL3')
 depends=('python-yaml')
 optdepends=('calamares-core')
-makedepends=('rsync') 
 provides=("${pkgname}")
 conflicts=("${pkgname}")
 source=()
@@ -21,13 +20,6 @@ PROJECT_DIRECTORY="$(dirname -- "$(dirname -- "$(pwd)")")"
 # NUMBER_OF_PROCESSORS="$(nproc)"
 
 prepare() {
-    # rsync \
-    #     --archive \
-    #     --human-readable \
-    #     --progress \
-    #     --update \
-    #     "$PROJECT_DIRECTORY"/* \
-    #     "${srcdir}"
     :
 }
 

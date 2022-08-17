@@ -4,3 +4,5 @@ scripts/packaging/**/src
 scripts/packaging/**/*.tar.*
 scripts/packaging/calamares-configuration-git/calamares-configuration/*
 scripts/packaging/calamares-configuration/calamares-configuration/*
+# Vscode
+.vscode/**

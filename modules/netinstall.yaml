@@ -3,92 +3,6 @@
   selected: true
   critical: true
   immutable: true
-  subgroups:
-    - name: Filesystems
-      description: Support for various filesystems
-      selected: true
-      critical: true
-      immutable: true
-      subgroups: 
-        - name: exFAT
-          description: exFAT support
-          selected: true
-          critical: true
-          immutable: true
-          packages: 
-            - exfatprogs
-            - exfat-utils
-        # - name: APFS
-        #   description: (AUR) APFS support
-        #   selected: true
-        #   critical: true
-        #   immutable: true          
-        #   packages: 
-        #     - linux-apfs-rw-dkms-git
-        #     - apfsprogs-git
-        # - name: Bcachefs
-        #   description: (AUR) Bcachefs support
-        #   selected: true
-        #   critical: true
-        #   immutable: true          
-        #   packages: 
-        #     - linux-bcachefs-git
-        #     - bcachefs-tools-git
-        # - name: ZFS
-        #   description: (AUR) ZFS support
-        #   selected: true
-        #   critical: true
-        #   immutable: true          
-        #   packages: 
-        #     - zfs-linux
-        #     - zfs-dkms
-        #     - zfs-utils
-      packages:           
-          - name: dosfstools
-            description: VFAT support
-          - name: e2fsprogs
-            description: ext3 and ext4 support
-          - name: ntfs-3g
-            description: NTFS support          
-          - name: btrfs-progs
-            description: BTRFS support
-          - name: xfsprogs
-            description: XFS support
-          # - name: reiserfsprogs
-          #   description: ReiserFS support
-          - name: f2fs-tools
-            description: F2FS support
-          # - name: hfsprogs
-          #   description: HFS and HFS+ support          
-          - name: jfsutils
-            description: JFS support
-          # - name: nilfs-utils
-          #   description: NILFS2 support          
-          # - name: udftools
-          #   description: UDF support
-          # - name: reiser4progs
-          #   description: Reiser4 support
-  packages:
-    - name: linux
-      description: The latest Linux kernel release
-    - name: linux-firmware
-      description: Firmware files for Linux
-    - name: mkinitcpio
-      description: Script to create the initial ramdisk. Required to re-run after configuring LVM, system encryption, or RAID
-    - name: grub
-      description: Bootloader required by the current installer version. Will be removed when bootloader is chosen and installed dynamically.
-    - name: efibootmgr
-      description: Required by the installer to setup the bootloader
-    - name: os-prober
-      description: For detecting other operating systems
-    - name: amd-ucode
-      description: Microcode update image for AMD CPUs. Required currently in bootloader.conf
-    - name: intel-ucode 
-      description: Microcode update files for Intel CPUs. Required currently in bootloader.conf
-    - name: sudo
-      description: Currently a hard dependency for the users module
-    - name: networkmanager
-      description: Currently hardcoded into the installer
     - name: python
       description: For running the post-install script
     - name: python-yaml
@@ -172,8 +86,8 @@
               description:
               packages:
                 - name: pipewire
-                  description: Low-latency audio/video router and processor
-                - name: lib32-pipewire
+                #   description: Low-latency audio/video router and processor
+                # - name: lib32-pipewire
                   description: For PipeWire with 32-bit support 
                 - name: pipewire-alsa
                   description: For PipeWire to manage ALSA as well
@@ -217,28 +131,6 @@
               description: A thin wrapper around libinput for input devices in X
             - name: xorg-xinput
               description: Tools to configure devices at runtime 
-        - name: Virtualization (as Guest)
-          description: Run RebornOS on a VM
-          subgroups:
-            - name: VirtualBox
-              packages: 
-                - name: virtualbox-guest-utils
-                  description: VirtualBox Guest utilities with X support
-            - name: VMWare
-              packages: 
-                - name: open-vm-tools
-                  description: Suite of open source virtualization utilities and drivers
-                - name: gtkmm3
-                  description: C++ bindings for GTK+ 3
-                - name: xf86-video-vmware
-                  description: X.org vmware video driver
-                - name: xf86-input-vmmouse
-                  description: X.org VMWare Mouse input driver
-                - name: mesa
-                  description: Open-source implementation of the OpenGL specification
-            - name: QEMU
-              packages: 
-                - qemu-guest-agent   
 - name: RebornOS
   selected: true
   subgroups:
@@ -248,8 +140,7 @@
         - rebornos-keyring
         - rebornos-mirrorlist
         - rebornos-os-release
-        - rebornos-logo 
-        - grub2-theme-vimix-git
+        - rebornos-logo
     - name: RebornOS Applications      
       packages:         
         - name: rebornos-fire
@@ -275,22 +166,6 @@
       description: D-Bus interface for user account query and manipulation
     - name: packagekit
       description: A system designed to make installation and updates of packages easier      
-  subgroups: 
-  - name: Kernels
-    description: Other variations of the Linux kernel
-    packages: 
-      - name: linux
-        description: The latest Linux kernel release
-      - name: linux-headers
-        description: Headers and scripts for building modules for the Linux kernel
-      - name: linux-lts
-        description: The more stable long-term-support kernel
-      - name: linux-lts-headers
-        description: Headers and scripts for building modules for the LTS Linux kernel
-      - name: linux-zen
-        description: The Linux Zen kernel and modules
-      - name: linux-zen-headers
-        description: Headers and scripts for building modules for the Linux Zen kernel
   - name: Display
     subgroups: 
       - name: Xorg
@@ -398,99 +273,102 @@
       - name: mesa
         description: Open-source implementation of OpenGL specification
     subgroups:
-      - name: Nvidia Drivers
-        description: For Nvidia GPUs     
-        packages:
-          - name: nvidia-settings
-            description: Tool to configure Nvidia drivers (needs Nvidia drivers)
-          - name: lib32-nvidia-utils
-            description: For 32-bit application support
-          - name: nvidia
-            description: For Maxwell (NV110/GMXXX) series and newer with linux kernel
-          - name: nvidia-lts
-            description: For Maxwell (NV110/GMXXX) series and newer with linux-lts kernel
-          - name: nvidia-dkms
-            description: For Maxwell (NV110/GMXXX) series and newer with a custom kernel 
-          # - name: nvidia-beta
-          #   description: (AUR) Newer drivers
-          - name: nvidia-open
-            description: For Turing (NV160/TUXXX) series and newer with linux kernel
-          - name: nvidia-open-dkms
-            description: For Turing (NV160/TUXXX) series and newer with custom kernel
-          - name: nvidia-470xx-dkms
-            description: For Kepler (NVE0/GKXXX) series
-          - name: nvidia-390xx-dkms
-            description: For Fermi (NVC0/GF1XX) series
-          - name: nvidia-340xx-dkms
-            description: (Unsupported) For Tesla (NV50/G80-90-GT2XX) series
-        subgroups: 
-          - name: Nvidia Hybrid
-            description: Nvidia Discrete with other integrated GPUs
-            subgroups:
-              - name: PRIME Render Offload
-                packages:
-                  - name: nvidia-prime
-                    description: Prime Render Offload configuration and utilities
-                  - xf86-video-amdgpu
-                  - xf86-video-intel
-              # - name: Nvidia-xrun
-              #   packages:
-              #     - name: nvidia-xrun-git
-              #       description: (AUR) Script to run dedicated X server with discrete nvidia graphics (git version)
-              #     - name: nvidia-xrun
-              #       description: (AUR) Old method, uses bumblebee to switch off the dGPU
-              - name: Bumblebee
-                packages:
-                  - name: bumblebee
-                    description: The main package providing the daemon and client programs
-                  - name: mesa
-                    description: An open-source implementation of the OpenGL specification
-                  - name: xf86-video-intel
-                    description: Intel Xorg driver.
-                  - name: lib32-virtualgl
-                    description: A render/display bridge for 32 bit applications
-                  - lib32-nvidia-utils
-                  # - lib32-nvidia-340xx-utils
-              # - name: Optimus manager
-              #   packages:
-              #     - optimus-manager
-              # - name: EnvyControl
-              #   packages:
-              #     - envycontrol
-              # - name: Nvidia-eXec
-              #   packages:
-              #     - name: nvidia-exec
-              #       post-install: "systemctl enable nvx"
-      - name: AMD Drivers
-        description: For AMD GPUs
-        packages:
-          - name: mesa
-            description: DRI driver for 3D acceleration
-          - name: lib32-mesa
-            description: For 32-bit application support
-          # - mesa-git
-          # - lib32-mesa-git
-          - name: xf86-video-amdgpu
-            description: DDX driver for 2D acceleration in Xorg
-          # - xf86-video-amdgpu-git
-          - name: vulkan-radeon
-            description: Radeon's Vulkan mesa driver
-          - name: lib32-vulkan-radeon
-            description: Radeon's Vulkan mesa driver with 32-bit support
-          - name: amdvlk
-            description: AMD's standalone Vulkan driver
-          - name: lib32-amdvlk
-            description: AMD's standalone Vulkan driver with 32bit support
-          - name: libva-mesa-driver
-            description: Accelerated video decoding for VA-API
-          - name: lib32-libva-mesa-driver
-            description: Accelerated video decoding for VA-API with 32-bit support
-          - name: mesa-vdpau 
-            description: Accelerated video decoding for VDPAU
-          - name: lib32-mesa-vdpau
-            description: Accelerated video decoding for VDPAU with 32-bit support
-          - name: xf86-video-ati
-            description: DDX driver for 2D acceleration in Xorg
+        - name: xf86-video-fbdev
+          selected: true
+          description: Framebuffer device drivers for X (Recommended for PI) 
+      # - name: Nvidia Drivers
+      #   description: For Nvidia GPUs     
+      #   packages:
+      #     - name: nvidia-settings
+      #       description: Tool to configure Nvidia drivers (needs Nvidia drivers)
+      #     - name: lib32-nvidia-utils
+      #       description: For 32-bit application support
+      #     - name: nvidia
+      #       description: For Maxwell (NV110/GMXXX) series and newer with linux kernel
+      #     - name: nvidia-lts
+      #       description: For Maxwell (NV110/GMXXX) series and newer with linux-lts kernel
+      #     - name: nvidia-dkms
+      #       description: For Maxwell (NV110/GMXXX) series and newer with a custom kernel 
+      #     # - name: nvidia-beta
+      #     #   description: (AUR) Newer drivers
+      #     - name: nvidia-open
+      #       description: For Turing (NV160/TUXXX) series and newer with linux kernel
+      #     - name: nvidia-open-dkms
+      #       description: For Turing (NV160/TUXXX) series and newer with custom kernel
+      #     - name: nvidia-470xx-dkms
+      #       description: For Kepler (NVE0/GKXXX) series
+      #     - name: nvidia-390xx-dkms
+      #       description: For Fermi (NVC0/GF1XX) series
+      #     - name: nvidia-340xx-dkms
+      #       description: (Unsupported) For Tesla (NV50/G80-90-GT2XX) series
+      #   subgroups: 
+      #     - name: Nvidia Hybrid
+      #       description: Nvidia Discrete with other integrated GPUs
+      #       subgroups:
+      #         - name: PRIME Render Offload
+      #           packages:
+      #             - name: nvidia-prime
+      #               description: Prime Render Offload configuration and utilities
+      #             - xf86-video-amdgpu
+      #             - xf86-video-intel
+      #         # - name: Nvidia-xrun
+      #         #   packages:
+      #         #     - name: nvidia-xrun-git
+      #         #       description: (AUR) Script to run dedicated X server with discrete nvidia graphics (git version)
+      #         #     - name: nvidia-xrun
+      #         #       description: (AUR) Old method, uses bumblebee to switch off the dGPU
+      #         - name: Bumblebee
+      #           packages:
+      #             - name: bumblebee
+      #               description: The main package providing the daemon and client programs
+      #             - name: mesa
+      #               description: An open-source implementation of the OpenGL specification
+      #             - name: xf86-video-intel
+      #               description: Intel Xorg driver.
+      #             - name: lib32-virtualgl
+      #               description: A render/display bridge for 32 bit applications
+      #             - lib32-nvidia-utils
+      #             # - lib32-nvidia-340xx-utils
+      #         # - name: Optimus manager
+      #         #   packages:
+      #         #     - optimus-manager
+      #         # - name: EnvyControl
+      #         #   packages:
+      #         #     - envycontrol
+      #         # - name: Nvidia-eXec
+      #         #   packages:
+      #         #     - name: nvidia-exec
+      #         #       post-install: "systemctl enable nvx"
+      # - name: AMD Drivers
+      #   description: For AMD GPUs
+      #   packages:
+      #     - name: mesa
+      #       description: DRI driver for 3D acceleration
+      #     - name: lib32-mesa
+      #       description: For 32-bit application support
+      #     # - mesa-git
+      #     # - lib32-mesa-git
+      #     - name: xf86-video-amdgpu
+      #       description: DDX driver for 2D acceleration in Xorg
+      #     # - xf86-video-amdgpu-git
+      #     - name: vulkan-radeon
+      #       description: Radeon's Vulkan mesa driver
+      #     - name: lib32-vulkan-radeon
+      #       description: Radeon's Vulkan mesa driver with 32-bit support
+      #     - name: amdvlk
+      #       description: AMD's standalone Vulkan driver
+      #     - name: lib32-amdvlk
+      #       description: AMD's standalone Vulkan driver with 32bit support
+      #     - name: libva-mesa-driver
+      #       description: Accelerated video decoding for VA-API
+      #     - name: lib32-libva-mesa-driver
+      #       description: Accelerated video decoding for VA-API with 32-bit support
+      #     - name: mesa-vdpau 
+      #       description: Accelerated video decoding for VDPAU
+      #     - name: lib32-mesa-vdpau
+      #       description: Accelerated video decoding for VDPAU with 32-bit support
+      #     - name: xf86-video-ati
+      #       description: DDX driver for 2D acceleration in Xorg
   - name: Audio
     packages:
       - name: pavucontrol
@@ -501,16 +379,16 @@
         packages:
           - name: pipewire
             description: Low-latency audio/video router and processor
-          - name: lib32-pipewire
-            description: For PipeWire with 32-bit support 
+          # - name: lib32-pipewire
+          #   description: For PipeWire with 32-bit support 
           - name: pipewire-alsa
             description: For PipeWire to manage ALSA as well
           - name: pipewire-pulse
             description: For PipeWire bluetooth support
           - name: pipewire-jack
             description: For PipeWire JACK sink, source and jackdbus detection
-          - name: lib32-pipewire-jack
-            description: For 32-bit PipeWire JACK sink, source and jackdbus detection
+          # - name: lib32-pipewire-jack
+            # description: For 32-bit PipeWire JACK sink, source and jackdbus detection
           - xdg-desktop-portal
           - xdg-desktop-portal-gnome
           - xdg-desktop-portal-kde
@@ -545,27 +423,6 @@
             description: Next generation secure network tunnel
           - name: pptpclient
             description: Client for the proprietary Microsoft Point-to-Point Tunneling Protocol
-      - name: Realtek Drivers
-        packages: 
-          - rtl8723bu-git-dkms
-          - rtl8812au-dkms-git
-          - rtl8814au-aircrack-dkms-git
-          - rtl8814au-dkms-git
-          - rtl8821ce-dkms-git
-          - rtl8821cu-dkms-git
-          - rtl88x2bu-dkms-git
-          - rtl88xxau-aircrack-dkms-git        
-      - name: Broadcom Drivers
-        subgroups:
-          - name: b43
-            packages:               
-              - b43-firmware
-              # - b43-firmware-classic
-              # - b43legacy-firmware
-          - name: broadcom-wl
-            packages:               
-              - broadcom-wl
-              - broadcom-wl-dkms
   - name: Bluetooth        
     packages:
       - name: bluez
@@ -655,30 +512,6 @@
         description: A thin wrapper around libinput for input devices in X
       - name: xorg-xinput
         description: Tools to configure devices at runtime  
-  - name: Virtualization (as Guest)
-    description: Run RebornOS on a VM
-    subgroups:
-      - name: VirtualBox
-        packages: 
-          - name: virtualbox-guest-utils
-            description: VirtualBox Guest utilities with X support
-          - name: virtualbox-guest-utils-nox
-            description: VirtualBox Guest utilities without X support 
-      - name: VMWare
-        packages: 
-          - name: open-vm-tools
-            description: Suite of open source virtualization utilities and drivers
-          - name: gtkmm3
-            description: C++ bindings for GTK+ 3
-          - name: xf86-video-vmware
-            description: X.org vmware video driver
-          - name: xf86-input-vmmouse
-            description: X.org VMWare Mouse input driver
-          - name: mesa
-            description: Open-source implementation of the OpenGL specification
-      - name: QEMU
-        packages: 
-          - qemu-guest-agent  
   - name: Remote Desktop Servers
     description: Let other computers connect remotely
     packages:

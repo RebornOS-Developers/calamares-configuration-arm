@@ -47,8 +47,8 @@ def main():
 
     copy_files()
 
-    if are_installed(NVIDIA_PACKAGES):
-        add_nvidia_modeset()
+    # if are_installed(NVIDIA_PACKAGES):
+    #     add_nvidia_modeset()
 
     configure_desktops(config=config)
 
@@ -59,6 +59,15 @@ def main():
         config=config
     )
 
+    if os.path.exists("/tmp/lxqt-user"):
+        logging.info("LXQt detected...")
+    else:
+        logging.info("LXQt not detected...")
+        logging.info("Removinging LXQt...")
+        logging.debug("Running pacman -Rnscu sddm xscreensaver lxqt-{session,runner,panel,about,globalkeys,notificationd,openssh-askpass,sudo,config,admin,powermanagement,policykit,qtplugin,themes,archiver} screengrab lximage-qt dragon kcalc partitionmanager okular kwrite pcmanfm-qt qterminal breeze-icons xdg-desktop-portal-kde pavucontrol openbox")
+        subprocess.run("Pacman -Rnscu sddm xscreensaver lxqt-{session,runner,panel,about,globalkeys,notificationd,openssh-askpass,sudo,config,admin,powermanagement,policykit,qtplugin,themes,archiver} screengrab lximage-qt dragon kcalc partitionmanager okular kwrite pcmanfm-qt qterminal breeze-icons xdg-desktop-portal-kde pavucontrol openbox", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        logging.info("LXQt removed...")
+        
     set_display_manager_defaults(
         desktop=default_desktop,
         config=config
