@@ -45,7 +45,6 @@ def main():
 
     config: Dict = load_configuration()
 
-    copy_files()
 
     # if are_installed(NVIDIA_PACKAGES):
     #     add_nvidia_modeset()
@@ -59,13 +58,32 @@ def main():
         config=config
     )
 
+    logging.info("Arm removal of rebornos user using a service")
+    subprocess.run(["systemctl", "enable", "oemcleanup.service"])
+    subprocess.run("rm /etc/sddm.conf.d/autologin.conf", shell=True)
+    rm_calamares_service= '''
+    [Unit]
+    Description=Remove Calamares 
+
+    [Service]
+    Type=oneshot
+    ExecStart=/bin/pacman -Rncsu --noconfirm calamares-core calamares-configuration && systemctl disable remove-calamares.service
+
+    [Install]
+    WantedBy=multi-user.target
+    '''
+    with open("/usr/lib/systemd/system/remove-calamares.service", "w") as f:
+        f.write(rm_calamares_service)
+    subprocess.run(["systemctl", "enable", "remove-calamares.service"])
+    subprocess.run(["rm", "/etc/sddm.conf.d/autologin.conf"])
+
     if os.path.exists("/tmp/lxqt-user"):
         logging.info("LXQt detected...")
     else:
         logging.info("LXQt not detected...")
         logging.info("Removinging LXQt...")
         logging.debug("Running pacman -Rnscu sddm xscreensaver lxqt-{session,runner,panel,about,globalkeys,notificationd,openssh-askpass,sudo,config,admin,powermanagement,policykit,qtplugin,themes,archiver} screengrab lximage-qt dragon kcalc partitionmanager okular kwrite pcmanfm-qt qterminal breeze-icons xdg-desktop-portal-kde pavucontrol openbox")
-        subprocess.run("Pacman -Rnscu sddm xscreensaver lxqt-{session,runner,panel,about,globalkeys,notificationd,openssh-askpass,sudo,config,admin,powermanagement,policykit,qtplugin,themes,archiver} screengrab lximage-qt dragon kcalc partitionmanager okular kwrite pcmanfm-qt qterminal breeze-icons xdg-desktop-portal-kde pavucontrol openbox", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        subprocess.run("Pacman -Rnscu sddm xscreensaver lxqt-{session,runner,panel,about,globalkeys,notificationd,openssh-askpass,sudo,config,admin,powermanagement,policykit,qtplugin,themes,archiver} screengrab lximage-qt dragon kcalc partitionmanager kwrite pcmanfm-qt qterminal breeze-icons xdg-desk", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         logging.info("LXQt removed...")
         
     set_display_manager_defaults(
@@ -104,30 +122,6 @@ def load_configuration() -> Dict:
             logging.debug("Configuration file successfully parsed...")
             return config
 
-
-def copy_files():
-    logging.info(
-        "Copying the contents of \"/var/tmp/post_install/rootfs\" to \"/\" (root)...")
-    shutil.copytree(
-        src="rootfs",
-        dst="/",
-        dirs_exist_ok=True,
-    )
-
-def add_nvidia_modeset():
-    with open("/etc/default/grub", 'r') as f:
-        config_lines = f.readlines()
-
-    for index, config_line in enumerate(config_lines):
-        config_line = config_line.strip()
-        if config_line.startswith("GRUB_CMDLINE_LINUX=") and "nvidia-drm.modeset=1" not in config_line:
-            kernel_parameters = config_line.split("=")[1]
-            kernel_parameters = kernel_parameters.strip('\" ') + " nvidia-drm.modeset=1"
-            kernel_parameters = kernel_parameters.strip()
-            config_lines[index] = f"GRUB_CMDLINE_LINUX=\"{kernel_parameters}\"\n"
-    
-    with open("/etc/default/grub", 'w') as f:
-        f.writelines(config_lines)
 
 def get_default_display_manager(config: Dict) -> Dict:
     logging.info("Determining the default Display Manager...")
