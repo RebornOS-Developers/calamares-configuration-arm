@@ -3,21 +3,20 @@
 pkgname=calamares-configuration-git
 pkgver=r467.c4aa923
 pkgrel=1
-arch=('i686' 'x86_64' 'armv6h' 'armv7h')
+arch=('aarch64')
 pkgdesc='Configuration for the RebornOS Calamares installer.'
 url='https://github.com/RebornOS-Developers/calamares-configuration'
 license=('GPL3')
 depends=('python-yaml')
 optdepends=('calamares-core')
-makedepends=('rsync' 'git') 
 provides=('calamares-configuration')
 conflicts=('calamares-configuration-git' 'calamares-configuration')
-source=("git+https://github.com/RebornOS-Developers/calamares-configuration")
+source=("git+https://github.com/RebornOS-Developers/calamares-configuration-arm")
 replaces=('calamares-configuration')
 md5sums=('SKIP')
 
 pkgver() {
-  cd "${srcdir}/calamares-configuration"
+  cd "${srcdir}/calamares-configuration-arm"
   ( set -o pipefail
     git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
@@ -30,7 +29,7 @@ prepare() {
 
 package() {
 
-    PROJECT_DIRECTORY="${srcdir}/calamares-configuration"
+    PROJECT_DIRECTORY="${srcdir}/calamares-configuration-arm"
     # BUILD_DIRECTORY="$PROJECT_DIRECTORY/build"
     # RESOURCE_DIRECTORY="$PROJECT_DIRECTORY/scripts/packaging"
     # NUMBER_OF_PROCESSORS="$(nproc)"

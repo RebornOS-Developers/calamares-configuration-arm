@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+from cmath import log
 import os
 import os.path
 import sys
@@ -58,33 +59,7 @@ def main():
         config=config
     )
 
-    logging.info("Arm removal of rebornos user using a service")
-    subprocess.run(["systemctl", "enable", "oemcleanup.service"])
-    subprocess.run("rm /etc/sddm.conf.d/autologin.conf", shell=True)
-    rm_calamares_service= '''
-    [Unit]
-    Description=Remove Calamares 
-
-    [Service]
-    Type=oneshot
-    ExecStart=/bin/pacman -Rncsu --noconfirm calamares-core calamares-configuration && systemctl disable remove-calamares.service
-
-    [Install]
-    WantedBy=multi-user.target
-    '''
-    with open("/usr/lib/systemd/system/remove-calamares.service", "w") as f:
-        f.write(rm_calamares_service)
-    subprocess.run(["systemctl", "enable", "remove-calamares.service"])
-    subprocess.run(["rm", "/etc/sddm.conf.d/autologin.conf"])
-
-    if os.path.exists("/tmp/lxqt-user"):
-        logging.info("LXQt detected...")
-    else:
-        logging.info("LXQt not detected...")
-        logging.info("Removinging LXQt...")
-        logging.debug("Running pacman -Rnscu sddm xscreensaver lxqt-{session,runner,panel,about,globalkeys,notificationd,openssh-askpass,sudo,config,admin,powermanagement,policykit,qtplugin,themes,archiver} screengrab lximage-qt dragon kcalc partitionmanager okular kwrite pcmanfm-qt qterminal breeze-icons xdg-desktop-portal-kde pavucontrol openbox")
-        subprocess.run("Pacman -Rnscu sddm xscreensaver lxqt-{session,runner,panel,about,globalkeys,notificationd,openssh-askpass,sudo,config,admin,powermanagement,policykit,qtplugin,themes,archiver} screengrab lximage-qt dragon kcalc partitionmanager kwrite pcmanfm-qt qterminal breeze-icons xdg-desk", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        logging.info("LXQt removed...")
+    
         
     set_display_manager_defaults(
         desktop=default_desktop,

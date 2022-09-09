@@ -1,8 +1,8 @@
 # Maintainer: shivanandvp <shivanandvp@rebornos.org>
 
 pkgname=calamares-configuration
-pkgver=0.0.15
-pkgrel=10
+pkgver=0.0.16
+pkgrel=2
 arch=('aarch64')
 pkgdesc='Configuration for the RebornOS Calamares installer.'
 url='https://github.com/RebornOS-Developers/calamares-configuration'
