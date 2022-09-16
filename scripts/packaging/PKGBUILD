@@ -2,7 +2,7 @@
 
 pkgname=calamares-configuration
 pkgver=0.0.16
-pkgrel=2
+pkgrel=5
 arch=('aarch64')
 pkgdesc='Configuration for the RebornOS Calamares installer.'
 url='https://github.com/RebornOS-Developers/calamares-configuration'
@@ -11,7 +11,8 @@ depends=('python-yaml')
 optdepends=('calamares-core')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
-source=()
+source=('remove-calamares.service')
+sha256sums=('SKIP')
 replaces=('calamares-branding')
 
 PROJECT_DIRECTORY="$(dirname -- "$(dirname -- "$(pwd)")")"
@@ -25,8 +26,9 @@ prepare() {
 
 package() {
 
+    
+    install -m644 "$srcdir"/remove-calamares.service "$pkgdir"/usr/lib/systemd/system/remove-calamares.service
     # Calamares related files and directories
-
     (   
         # Copy settings_online.conf and settings_offline.conf
         cd "$PROJECT_DIRECTORY" && \
@@ -82,13 +84,13 @@ package() {
             -exec \
                 install -Dm 700 "{}" "${pkgdir}/etc/calamares/{}" \;
     )
-    (
-        # Copy local packages
-        cd "$PROJECT_DIRECTORY" && \
-        find local_packages \
-            -type f \
-            -exec \
-                install -Dm 700 "{}" "${pkgdir}/etc/calamares/{}" \;
-    )
+    # (
+    #     # Copy local packages
+    #     cd "$PROJECT_DIRECTORY" && \
+    #     find local_packages \
+    #         -type f \
+    #         -exec \
+    #             install -Dm 700 "{}" "${pkgdir}/etc/calamares/{}" \;
+    # )
 
 }

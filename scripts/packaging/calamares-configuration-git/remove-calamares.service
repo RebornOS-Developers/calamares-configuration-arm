@@ -1,0 +1,9 @@
+[Unit]
+Description=Remove Calamares 
+
+[Service]
+Type=oneshot
+ExecStart=/bin/pacman -Rncsu --noconfirm calamares-core calamares-configuration && systemctl disable remove-calamares.service
+
+[Install]
+WantedBy=multi-user.target

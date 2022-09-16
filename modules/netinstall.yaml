@@ -984,8 +984,7 @@
         #   description: (AUR) Open-source office software suite for word processing, spreadsheets, presentations, graphics, databases and more
         # - name: freeoffice
         #   description: (AUR) Microsoft Office-compatible proprietary office suite with a word processor, spreadsheet, and presentation graphics software
-        # - name: onlyoffice-bin
-        #   description: (AUR) Office suite that combines text, spreadsheet and presentation editors
+
         # - name: wps-office
         #   description: (AUR) Proprietary office productivity suite, previously known as Kingsoft Office
         # - name: yozo-office
