@@ -54,7 +54,7 @@ cumulative_package_list = list(
 )
 
 # print("The cumulative package list is: \n", cumulative_package_list)
-avalpkg = subprocess.check_output(["pacman", "-ssq"]).decode("utf-8").split("\n")
+avalpkg = subprocess.check_output(["pacman", "-Ssq"]).decode("utf-8").split("\n")
 for package in cumulative_package_list:
     
     if not package in avalpkg:

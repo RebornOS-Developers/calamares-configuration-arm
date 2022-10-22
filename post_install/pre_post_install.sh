@@ -8,10 +8,10 @@ rm /etc/sudoers.d/g_wheel
 echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/10-installer
 systemctl enable remove-calamares.service
 
+
 if [ -f /tmp/lxqt-user ]; then
     echo "LXQt detected..."
 else
-    systemctl disable sddm.service
     echo "LXQt not detected..."
     echo "Removinging LXQt..."
     pacman -Rncsu --noconfirm rebornos-cosmic-lxqt

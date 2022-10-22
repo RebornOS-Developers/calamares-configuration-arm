@@ -10,7 +10,7 @@ BUILD_DIRECTORY="$PROJECT_DIRECTORY"/build
     cd "$SCRIPT_DIRECTORY"/packaging && \
     makepkg \
         --force \
-        --syncdeps \
+        --nodeps \
         "$@"
     set +o xtrace
 )

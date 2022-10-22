@@ -1,8 +1,8 @@
-# Maintainer: shivanandvp <shivanandvp@rebornos.org>
+# Maintainer: Panda <panda@rebornos.org>
 
 pkgname=calamares-configuration
-pkgver=0.0.16
-pkgrel=5
+pkgver=0.0.17
+pkgrel=3
 arch=('aarch64')
 pkgdesc='Configuration for the RebornOS Calamares installer.'
 url='https://github.com/RebornOS-Developers/calamares-configuration'
@@ -11,8 +11,7 @@ depends=('python-yaml')
 optdepends=('calamares-core')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
-source=('remove-calamares.service')
-sha256sums=('SKIP')
+source=()
 replaces=('calamares-branding')
 
 PROJECT_DIRECTORY="$(dirname -- "$(dirname -- "$(pwd)")")"
@@ -25,9 +24,6 @@ prepare() {
 }
 
 package() {
-
-    
-    install -m644 "$srcdir"/remove-calamares.service "$pkgdir"/usr/lib/systemd/system/remove-calamares.service
     # Calamares related files and directories
     (   
         # Copy settings_online.conf and settings_offline.conf
