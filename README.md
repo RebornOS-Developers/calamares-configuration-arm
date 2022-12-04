@@ -1,4 +1,4 @@
-# Calamares Configuration ARM
+# Calamares Configuration ARM **UNMAINTAINED** Use RebornOS-Developers/calamares-configuration-rpi
 
 This is what makes RebornOS' Calamares behave differently from the Calamares source. This repository is also what enables Calamares to install RebornOS ARM.
 
